@@ -81,11 +81,18 @@ function zippydownload()
 
     # unescape file name
     filename="$(echo -e "${filename//%/\\x}")"
+    tempfilename=".tmp.${filename}"
 
     echo "${filename}"
 
     # Start download file
-    curl -# -A "${agent}" -e "${ref}" -H "Cookie: JSESSIONID=${jsessionid}" -C - "${dl}" -o "${filename}"
+    curl -# -A "${agent}" -e "${ref}" -H "Cookie: JSESSIONID=${jsessionid}" -C - "${dl}" -o "${tempfilename}"
+
+    if [ $? = 0 ]; then
+        mv "$tempfilename" "$filename"
+    else
+        rm "$tempfilename"
+    fi
 
     rm -f "${cookiefile}" 2> /dev/null
     rm -f "${infofile}" 2> /dev/null
