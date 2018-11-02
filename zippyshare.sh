@@ -17,8 +17,8 @@ fi
 function zippydownload()
 {
     prefix="$( echo -n "${url}" | cut -c "11,12,31-38" | sed -e 's/[^a-zA-Z0-9]//g' )"
-    cookiefile="${prefix}-cookie.tmp"
-    infofile="${prefix}-info.tmp"
+    cookiefile=".${prefix}-cookie.tmp"
+    infofile=".${prefix}-info.tmp"
 
     # loop that makes sure the script actually finds a filename
     filename=""
