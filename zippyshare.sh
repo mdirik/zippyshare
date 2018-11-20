@@ -87,8 +87,9 @@ function zippydownload()
 
     # Start download file
     curl -f -# -A "${agent}" -e "${ref}" -H "Cookie: JSESSIONID=${jsessionid}" -C - "${dl}" -o "${tempfilename}"
+    rc=$?
 
-    if [ $? = 0 ]; then
+    if [ $rc = 0 ]; then
         mv "$tempfilename" "$filename"
     else
         rm "$tempfilename"
@@ -96,6 +97,8 @@ function zippydownload()
 
     rm -f "${cookiefile}" 2> /dev/null
     rm -f "${infofile}" 2> /dev/null
+
+    return $rc
 }
 
 if [ -f "${1}" ]
