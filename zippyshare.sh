@@ -86,7 +86,7 @@ function zippydownload()
     echo "${filename}"
 
     # Start download file
-    curl -# -A "${agent}" -e "${ref}" -H "Cookie: JSESSIONID=${jsessionid}" -C - "${dl}" -o "${tempfilename}"
+    curl -f -# -A "${agent}" -e "${ref}" -H "Cookie: JSESSIONID=${jsessionid}" -C - "${dl}" -o "${tempfilename}"
 
     if [ $? = 0 ]; then
         mv "$tempfilename" "$filename"
