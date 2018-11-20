@@ -55,6 +55,7 @@ function zippydownload()
         dlbutton="$( grep 'getElementById..dlbutton...href' "${infofile}" | grep -oE '[0-9]+%[0-9]+' )"
         if [ -n "${dlbutton}" ]
         then
+           dlbutton="$(echo "$dlbutton" | head -1)" # workaround for fixing new regex
            algorithm="${dlbutton}+11"
         else
            echo "could not get zippyshare url algorithm"
