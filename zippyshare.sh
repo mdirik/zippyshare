@@ -2,8 +2,8 @@
 # @Description: zippyshare.com file download script
 # @Author: Live2x
 # @URL: https://github.com/ffluegel/zippyshare
-# @Version: 201902050001
-# @Date: 2019-02-05
+# @Version: 201902240001
+# @Date: 2019-02-24
 # @Usage: ./zippyshare.sh url
 
 if [ -z "${1}" ]
@@ -53,10 +53,12 @@ function zippydownload()
     then
         # Get url algorithm
         dlbutton="$(grep -oE 'var a = [0-9]+;' ${infofile} | grep -oE '[0-9]+')"
+
+        dlbutton="$(echo "$dlbutton" | head -1)" # workaround for fixing new regex
+
         if [ -n "${dlbutton}" ]
         then
-           dlbutton="$(echo "$dlbutton" | head -1)" # workaround for fixing new regex
-           algorithm="${dlbutton}**3+3"
+           algorithm="${dlbutton}/3+${dlbutton}%742589"
         else
            echo "could not get zippyshare url algorithm"
            exit 1
